@@ -1,0 +1,3 @@
+{
+	"name": "Adelia Multi Device "
+}
