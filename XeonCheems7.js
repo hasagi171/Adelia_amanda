@@ -24,6 +24,7 @@ const photooxy = require('./scrape/photooxy')
 const yts = require('./scrape/yt-search')
 const kirleys = require('@adiwajshing/baileys')
 const vm = require('node:vm')
+const { remini } = require('./scrape/remini')
 const { EmojiAPI } = require("emoji-api");
 const emoji = new EmojiAPI()
 const owner = JSON.parse(fs.readFileSync('./database/owner.json'))
@@ -57,6 +58,8 @@ const canvas = require('canvacord')
 let _level = JSON.parse(fs.readFileSync('./database/level.json'));
 let leveling_ = JSON.parse(fs.readFileSync('./database/leveling.json'));
 let _bg = JSON.parse(fs.readFileSync('./database/background.json'));
+
+const uang = JSON.parse(fs.readFileSync('./database/uang.json'))
 
 global.db = JSON.parse(fs.readFileSync('./database/database.json'))
 if (global.db) global.db = {
@@ -164,7 +167,7 @@ const gcprem = m.isGroup ? gcpremz.includes(from) : false
         const AntiLinkTwitter = m.isGroup ? ntilinktwt.includes(from) : false
         const AntiLinkAll = m.isGroup ? ntilinkall.includes(from) : false
         
-        const humankey = '1b2f6b095700de357c12693d'
+        const humankey = '2e9730bd9cea19612fa56b9a'
       
       // peoyek
         const antiWame = m.isGroup ? ntwame.includes(from) : false
@@ -240,6 +243,27 @@ if (!XeonBotInc.public) {
 if (!m.key.fromMe) return
 }
 
+const addKoinUser = (sender, amount) => {
+            let position = false
+            Object.keys(uang).forEach((i) => {
+                if (uang[i].id === sender) {
+                    position = i
+                }
+            })
+            if (position !== false) {
+                uang[position].uang += amount
+                fs.writeFileSync('./database/uang.json', JSON.stringify(uang))
+            }
+        }
+        
+    if  (text.includes('@6285172314232')) {
+	const adel = ["dalem", "muah", "hallo"]
+		let mot1 = adel[Math.floor(Math.random() *adel.length)]
+	php = await getBuffer(`https://github.com/hasagi171/database/blob/master/media/${mot1}.mp3`)
+            XeonBotInc.sendMessage(m.chat, { audio : php , mimetype: 'audio/mp4', ptt: true }, { quoted: m })
+        }
+        
+
 if (tebaklagu.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
 
             kuis = true
@@ -247,6 +271,8 @@ if (tebaklagu.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
             jawaban = tebaklagu[m.sender.split('@')[0]]
             if (budy.toLowerCase() == jawaban) {
                 await XeonBotInc.sendText(m.chat, `🎮 Tebak Lagu 🎮\n\nJawaban Benar 🎉\n\nIngin bermain lagi? tekan button dibawah`, m)
+                const uangsaku = 500
+                addKoinUser(sender, uangsaku)
                 delete tebaklagu[m.sender.split('@')[0]]
             } else m.reply('*Jawaban Salah!*')
         }
@@ -255,6 +281,8 @@ if (tebaklagu.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
             jawaban = tebakkabupaten[m.sender.split('@')[0]]
             if (budy.toLowerCase() == jawaban) {
                 await XeonBotInc.sendText(m.chat, `🎮 Tebak Kabupaten 🎮\n\nJawaban Benar 🎉\n\nIngin bermain lagi? tekan button dibawah`, m)
+                const uangsaku = 500
+                addKoinUser(sender, uangsaku)
                 delete tebakkabupaten[m.sender.split('@')[0]]
             } else m.reply('*Jawaban Salah!*')
         }
@@ -263,6 +291,8 @@ if (tebaklagu.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
             jawaban = tebakprovinsi[m.sender.split('@')[0]]
             if (budy.toLowerCase() == jawaban) {
                 await XeonBotInc.sendText(m.chat, `🎮 Tebak Provinsi 🎮\n\nJawaban Benar 🎉\n\nIngin bermain lagi? tekan button dibawah`, m)
+                const uangsaku = 500
+                addKoinUser(sender, uangsaku)
                 delete tebakprovinsi[m.sender.split('@')[0]]
             } else m.reply('*Jawaban Salah!*')
         }
@@ -272,6 +302,8 @@ if (tebaklagu.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
             jawaban = kuismath[m.sender.split('@')[0]]
             if (budy.toLowerCase() == jawaban) {
                 await m.reply(`🎮 Kuis Matematika  🎮\n\nJawaban Benar 🎉\n\nIngin bermain lagi? kirim ${prefix}math mode`)
+                const uangsaku = 500
+                addKoinUser(sender, uangsaku)
                 delete kuismath[m.sender.split('@')[0]]
             } else m.reply('*Jawaban Salah!*')
         }
@@ -281,6 +313,8 @@ if (tebaklagu.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
             jawaban = tebakgambar[m.sender.split('@')[0]]
             if (budy.toLowerCase() == jawaban) {
                 await XeonBotInc.sendText(m.chat, `🎮 Tebak Gambar 🎮\n\nJawaban Benar 🎉\n\nIngin bermain lagi? tekan button dibawah`, m)
+                const uangsaku = 500
+                addKoinUser(sender, uangsaku)
                 delete tebakgambar[m.sender.split('@')[0]]
             } else m.reply('*Jawaban Salah!*')
         }
@@ -290,6 +324,8 @@ if (tebaklagu.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
             jawaban = tebakkata[m.sender.split('@')[0]]
             if (budy.toLowerCase() == jawaban) {
                 await XeonBotInc.sendText(m.chat, `🎮 Tebak Kata 🎮\n\nJawaban Benar 🎉\n\nIngin bermain lagi? tekan button dibawah`, m)
+                const uangsaku = 500
+                addKoinUser(sender, uangsaku)
                 delete tebakkata[m.sender.split('@')[0]]
             } else m.reply('*Jawaban Salah!*')
         }
@@ -299,6 +335,8 @@ if (tebaklagu.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
             jawaban = tekateki[m.sender.split('@')[0]]
             if (budy.toLowerCase() == jawaban) {
                 await XeonBotInc.sendText(m.chat,`🎮 Teka Teki 🎮\n\nJawaban Benar 🎉\n\nIngin bermain lagi? tekan button dibawah`, m)
+                const uangsaku = 500
+                addKoinUser(sender, uangsaku)
                 delete tekateki[m.sender.split('@')[0]]
             } else m.reply('*Jawaban Salah!*')
         }
@@ -308,6 +346,8 @@ if (unsurk.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
             jawaban = unsurk[m.sender.split('@')[0]]
             if (budy.toLowerCase() == jawaban) {
                 await XeonBotInc.sendText(m.chat, `🎮 unsur kimia 🎮\n\nJawaban Benar 🎉\n\nIngin bermain lagi? tekan button dibawah`, m)
+                const uangsaku = 500
+                addKoinUser(sender, uangsaku)
                 delete unsurk[m.sender.split('@')[0]]
             } else m.reply('*Jawaban Salah!*')
         }
@@ -317,6 +357,8 @@ if (susunkata.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
             jawaban = susunkata[m.sender.split('@')[0]]
             if (budy.toLowerCase() == jawaban) {
                 await XeonBotInc.sendText(m.chat,`🎮 susun kata 🎮\n\nJawaban Benar 🎉\n\nIngin bermain lagi? tekan button dibawah`, m)
+                const uangsaku = 500
+                addKoinUser(sender, uangsaku)
                 delete susunkata[m.sender.split('@')[0]]
             } else m.reply('*Jawaban Salah!*')
         }
@@ -326,6 +368,8 @@ if (siapaaku.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
             jawaban = siapaaku[m.sender.split('@')[0]]
             if (budy.toLowerCase() == jawaban) {
                 await XeonBotInc.sendText(m.chat, `🎮 siapa aku 🎮\n\nJawaban Benar 🎉\n\nIngin bermain lagi? tekan button dibawah`, m)
+                const uangsaku = 500
+                addKoinUser(sender, uangsaku)
                 delete siapaaku[m.sender.split('@')[0]]
             } else m.reply('*Jawaban Salah!*')
         }
@@ -336,6 +380,8 @@ if (siapaaku.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
 	    deskripsi = caklontong_desk[m.sender.split('@')[0]]
             if (budy.toLowerCase() == jawaban) {
                 await XeonBotInc.sendText(m.chat, `🎮 Cak Lontong 🎮\n\nJawaban Benar 🎉\n*${deskripsi}*\n\nIngin bermain lagi? tekan button dibawah`, m)
+                const uangsaku = 500
+                addKoinUser(sender, uangsaku)
                 delete caklontong[m.sender.split('@')[0]]
 		delete caklontong_desk[m.sender.split('@')[0]]
             } else m.reply('*Jawaban Salah!*')
@@ -346,6 +392,8 @@ if (siapaaku.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
             jawaban = tebakkalimat[m.sender.split('@')[0]]
             if (budy.toLowerCase() == jawaban) {
                 await XeonBotInc.sendText(m.chat,  `🎮 Tebak Kalimat 🎮\n\nJawaban Benar 🎉\n\nIngin bermain lagi? tekan button dibawah`, m)
+                const uangsaku = 500
+                addKoinUser(sender, uangsaku)
                 delete tebakkalimat[m.sender.split('@')[0]]
             } else m.reply('*Jawaban Salah!*')
         }
@@ -355,6 +403,8 @@ if (siapaaku.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
             jawaban = asahotak[m.sender.split('@')[0]]
             if (budy.toLowerCase() == jawaban) {
                 await XeonBotInc.sendText(m.chat `🎮 Asah Otak 🎮\n\nJawaban Benar 🎉\n\nIngin bermain lagi? tekan button dibawah`, m)
+                const uangsaku = 500
+                addKoinUser(sender, uangsaku)
                 delete asahotak[m.sender.split('@')[0]]
             } else m.reply('*Jawaban Salah!*')
         }
@@ -364,6 +414,8 @@ if (siapaaku.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
             jawaban = tebakbendera[m.sender.split('@')[0]]
             if (budy.toLowerCase() == jawaban) {
                 await XeonBotInc.sendText(m.chat, `🎮 Tebak Bendera 🎮\n\nJawaban Benar 🎉\n\nIngin bermain lagi? tekan button dibawah`, m)
+                const uangsaku = 500
+                addKoinUser(sender, uangsaku)
                 delete tebakbendera[m.sender.split('@')[0]]
             } else m.reply('*Jawaban Salah!*')
         }
@@ -373,6 +425,8 @@ if (siapaaku.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
             jawaban = tebaklirik[m.sender.split('@')[0]]
             if (budy.toLowerCase() == jawaban) {
                 await XeonBotInc.sendText(m.chat, `🎮 Tebak Lirik 🎮\n\nJawaban Benar 🎉\n\nIngin bermain lagi? tekan button dibawah`, m)
+                const uangsaku = 500
+                addKoinUser(sender, uangsaku)
                 delete tebaklirik[m.sender.split('@')[0]]
             } else m.reply('*Jawaban Salah!*')
         }
@@ -382,6 +436,8 @@ if (siapaaku.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
             jawaban = tebaktebakan[m.sender.split('@')[0]]
             if (budy.toLowerCase() == jawaban) {
                 await XeonBotInc.sendText(m.chat, `🎮 Tebak Tebakan 🎮\n\nJawaban Benar 🎉\n\nIngin bermain lagi? tekan button dibawah`, m)
+                const uangsaku = 500
+                addKoinUser(sender, uangsaku)
                 delete tebaktebakan[m.sender.split('@')[0]]
             } else m.reply('*Jawaban Salah!*')
         }
@@ -536,6 +592,51 @@ const replaceBg = (userId, link, _dir) => {
         fs.writeFileSync('./database/background.json', JSON.stringify(_dir))
     }
 }
+
+const addATM = (sender) => {
+        	const obj = {id: sender, uang : 0}
+            uang.push(obj)
+            fs.writeFileSync('./database/uang.json', JSON.stringify(uang))
+        }
+        
+     /*   const addKoinUser = (sender, amount) => {
+            let position = false
+            Object.keys(uang).forEach((i) => {
+                if (uang[i].id === sender) {
+                    position = i
+                }
+            })
+            if (position !== false) {
+                uang[position].uang += amount
+                fs.writeFileSync('./database/uang.json', JSON.stringify(uang))
+            }
+        } */
+        
+        const checkATMuser = (sender) => {
+        	let position = false
+            Object.keys(uang).forEach((i) => {
+                if (uang[i].id === sender) {
+                    position = i
+                }
+            })
+            if (position !== false) {
+                return uang[position].uang
+            }
+        }
+        
+        const confirmATM = (sender, amount) => {
+        	let position = false
+            Object.keys(uang).forEach((i) => {
+                if (uang[i].id === sender) {
+                    position = i
+                }
+            })
+            if (position !== false) {
+                uang[position].uang -= amount
+                fs.writeFileSync('./database/uang.json', JSON.stringify(uang))
+            }
+        }
+        
 
 const levelRole = getLevelingLevel(m.sender, _level)
         var role = 'Copper V'
@@ -763,6 +864,17 @@ if (isMedia && m.msg.fileSha256 && (m.msg.fileSha256.toString('base64') in globa
         if (isBannedd && isBanned) {
             console.log(chalk.red(chalk.bgWhite('[ BAN ]')), chalk.red(chalk.bgGreen(new Date)), chalk.red(chalk.bgBlue(budy || m.mtype)) + '\n' + chalk.magenta('=> From'), chalk.green(pushname), chalk.yellow(m.sender))
         }
+        
+ /*   if (isCmd ) {
+            const checkATM = checkATMuser(sender)
+            try {
+                if (checkATM === undefined) addATM(sender)
+                const uangsaku = Math.floor(Math.random() * 10) + 90
+                addKoinUser(sender, uangsaku)
+            } catch (err) {
+                console.error(err)
+            }
+        } */
 
 if (isCmd && !isUser) {
 xeonverifieduser.push(sender)
@@ -1008,12 +1120,19 @@ let chats = global.db.chats[m.chat]
             if (chats) {
                 if (!('mute' in chats)) chats.mute = false
                 if (!('antilink' in chats)) chats.antilink = false
+                if (!('mutes' in chats)) chats.mutes = false
+                
             } else global.db.chats[m.chat] = {
                 mute: false,
                 antilink: false,
+                mutes : false,
             }
             
 if (db.chats[m.chat].mute && !isGroupAdmins && !XeonTheCreator) {
+      return
+      }
+      
+if (db.chats[m.chat].mutes && isGroupAdmins && !XeonTheCreator) {
       return
       }
 
@@ -1636,6 +1755,57 @@ if ( !isBannedd && !bangc || XeonTheCreator ) {
    
 switch (command) {
     
+    case 'withdraw': {
+                if (!text) return m.reply('tulis nominal yang akan di withdraw')
+              	const tujuan = '6285339189356'
+                const jumblah = text
+                if(isNaN(jumblah)) return await reply('jumlah harus berupa angka!!')
+                if (jumblah < 5000 ) return reply(`minimal withdraw 5000`)
+               	if (checkATMuser(sender) < jumblah) return reply(`uang mu tidak mencukupi untuk melakukan withdraw`)
+               	const tujuantf = `${tujuan.replace("@", '')}@s.whatsapp.net`
+                fee = 0.010 *  jumblah
+                hasiltf = jumblah - fee
+                addKoinUser(tujuantf, hasiltf)
+                confirmATM(sender, jumblah)
+               	addKoinUser('6285339189356@s.whatsapp.net', fee)
+                reply(`*「 SUKSES 」*\n withdraw`)
+    }
+                break
+                
+    case 'balance': case 'uang' :
+     const uangku = checkATMuser(sender)
+     const checkATM = checkATMuser(sender)
+     if (checkATM === undefined) addATM(sender)
+                const uangsaku = 5
+                addKoinUser(sender, uangsaku)
+    XeonBotInc.sendText(m.chat , `UANG anda adalah ${uangku}`, m)
+    break
+    
+  case 'transfer':
+                if (!q.includes('|')) return XeonBotInc.sendText(m.chat,'format salah', m)
+              	const tujuan = q.substring(0, q.indexOf('|') - 1)
+                const jumblah = q.substring(q.lastIndexOf('|') + 1)
+                if(isNaN(jumblah)) return await reply('jumlah harus berupa angka!!')
+                if (jumblah < 5000 ) return reply(`minimal transfer 5000`)
+               	if (checkATMuser(sender) < jumblah) return reply(`uang mu tidak mencukupi untuk melakukan transfer`)
+               	const tujuantf = `${tujuan.replace("@", '')}@s.whatsapp.net`
+                fee = 0.005 *  jumblah
+                hasiltf = jumblah - fee
+                addKoinUser(tujuantf, hasiltf)
+                confirmATM(sender, jumblah)
+               	addKoinUser(`${tujuantf}`, fee)
+                reply(`*「 SUKSES 」*\n\nPengiriman uang telah sukses\nDari : +${sender.split("@")[0]}\nKe : +${tujuan}\njJumlah transfer : ${jumblah}\nPajak : ${fee}`)
+                break
+    
+    case 'remini': {
+if (!quoted) return XeonBotInc.sendMessage(m.chat, `Fotonya Mana?`,m)
+if (!/image/.test(mime)) return XeonBotInc.sendMessage(m.chat,`Send/Reply Foto Dengan Caption ${prefix + command}`,m )
+m.reply(mess.wait)
+let media = await quoted.download()
+let proses = await remini(media, "enhance");
+XeonBotInc.sendMessage(m.chat, { image: proses, caption: '_Maaf Kak, Kalau Hasilnya Nggak Bagus_ T_T'}, { quoted: m})
+}
+break
     
     case 'totag': {
                if (!m.isGroup) return m.reply(mess.group)
@@ -1671,10 +1841,7 @@ case 'aksara': {
         XeonBotInc.sendText(m.chat ,anu.hasil , m)
 }
             break
-
-
-
-
+            
 // lolhuman entertainment
 
 case '/': {
@@ -1687,6 +1854,17 @@ case '/': {
 }
             break
 
+// akuari search
+
+            
+ case 'pinterest' :  {
+    if  (!text) return replygcxeon(`Example : ${prefix + command} bunga`)
+     const itemslh = await fetchJson(`https://api.lolhuman.xyz/api/pinterest2?apikey=1b2f6b095700de357c12693d&query=${text}`)
+     const dev = itemslh.result
+     let cewelh = dev[Math.floor(Math.random() *dev.length)]
+            XeonBotInc.sendMessage(m.chat, { image: { url: cewelh},  caption: `ini kak` }, { quoted: m })
+ }
+            break
 
 
 // lolhuman information
@@ -1746,25 +1924,25 @@ case 'ktp': {
 	        m.reply(mess.wait)
             nik = text.split('|')[0] ? text.split('|')[0] : '-'
             provinsi = text.split('|')[1] ? text.split('|')[1] : '-'
-            kabu = text.split('|')[0] ? text.split('|')[2] : '-'
-            nama = text.split('|')[1] ? text.split('|')[3] : '-'
-             ttl = text.split('|')[0] ? text.split('|')[4] : '-'
-            jk = text.split('|')[1] ? text.split('|')[5] : '-'
-             jl = text.split('|')[0] ? text.split('|')[6] : '-'
-            rtrw = text.split('|')[1] ? text.split('|')[7] : '-'
-             lurah = text.split('|')[0] ? text.split('|')[8] : '-'
-            camat = text.split('|')[1] ? text.split('|')[9] : '-'
-            agama = text.split('|')[0] ? text.split('|')[10] : '-'
-            nikah = text.split('|')[1] ? text.split('|')[11] : '-'
-            kerja = text.split('|')[0] ? text.split('|')[12] : '-'
-            warga = text.split('|')[1] ? text.split('|')[13] : '-'
-            until = text.split('|')[0] ? text.split('|')[14] : '-'
+            kabu = text.split('|')[2] ? text.split('|')[2] : '-'
+            nama = text.split('|')[3] ? text.split('|')[3] : '-'
+             ttl = text.split('|')[4] ? text.split('|')[4] : '-'
+            jk = text.split('|')[5] ? text.split('|')[5] : '-'
+             jl = text.split('|')[6] ? text.split('|')[6] : '-'
+            rtrw = text.split('|')[7] ? text.split('|')[7] : '-'
+             lurah = text.split('|')[8] ? text.split('|')[8] : '-'
+            camat = text.split('|')[9] ? text.split('|')[9] : '-'
+            agama = text.split('|')[10] ? text.split('|')[10] : '-'
+            nikah = text.split('|')[11] ? text.split('|')[11] : '-'
+            kerja = text.split('|')[12] ? text.split('|')[12] : '-'
+            warga = text.split('|')[13] ? text.split('|')[13] : '-'
+            until = text.split('|')[14] ? text.split('|')[14] : '-'
             
             let { UploadFileUgu, webp2mp4File, TelegraPH } = require('./lib/uploader')
 	        let dwnld = await XeonBotInc.downloadAndSaveMediaMessage(qmsg)
 	        let fatGans = await TelegraPH(dwnld)
 	       
-	        XeonBotInc.sendMessage(m.chat, { image: { url: `https://api.lolhuman.xyz/api/ktpmaker?apikey=1b2f6b095700de357c12693d&nik=${encodeURIComponent(nik)}&prov=${encodeURIComponent(provinsi)}&kabu=${encodeURIComponent(kabu)}&name=${encodeURIComponent(nama)}&ttl=${encodeURIComponent(ttl)}&jk=${encodeURIComponent(jk)}&jl=${encodeURIComponent(jl)}&rtrw=${encodeURIComponent(rtrw)}&lurah=${encodeURIComponent(lurah)}&camat=${encodeURIComponent(camat)}&agama=${encodeURIComponent(agama)}&nikah=${encodeURIComponent(nikah)}&kerja=${encodeURIComponent(kerja)}&warga=${encodeURIComponent(warga)}&until=${encodeURIComponent(until)}&img=${fatGans}.jpg`}, caption : mess.success }, { quoted: m })
+	        XeonBotInc.sendMessage(m.chat, { image: { url: `https://api.lolhuman.xyz/api/ktpmaker?apikey=1b2f6b095700de357c12693d&nik=${encodeURIComponent(nik)}&prov=${encodeURIComponent(provinsi)}&kabu=${encodeURIComponent(kabu)}&name=${encodeURIComponent(nama)}&ttl=${encodeURIComponent(ttl)}&jk=${encodeURIComponent(jk)}&jl=${encodeURIComponent(jl)}&rtrw=${encodeURIComponent(rtrw)}&lurah=${encodeURIComponent(lurah)}&camat=${encodeURIComponent(camat)}&agama=${encodeURIComponent(agama)}&nikah=${encodeURIComponent(nikah)}&kerja=${encodeURIComponent(kerja)}&warga=${encodeURIComponent(warga)}&until=${encodeURIComponent(until)}&img=${fatGans}`}, caption : mess.success }, { quoted: m })
             }
 	        break
 case 'nulis':
@@ -1885,6 +2063,20 @@ case 'smeme': {
 	        let smeme = `https://api.memegen.link/images/custom/${encodeURIComponent(atas)}/${encodeURIComponent(bawah)}.png?background=${fatGans}`
 	        let FaTiH = await XeonBotInc.sendImageAsSticker(m.chat, smeme, m, { packname: global.packname, author: global.auhor })
 	        await fs.unlinkSync(FaTiH)
+            }
+	        break
+case 'gmeme': {
+	        let respond = `Kirim/reply image/sticker dengan caption ${prefix + command} text1|text2`
+	        if (!/image/.test(mime)) return m.reply(respond)
+            if (!text) return m.reply(respond)
+	        m.reply(mess.wait)
+            atas = text.split('|')[0] ? text.split('|')[0] : '-'
+            bawah = text.split('|')[1] ? text.split('|')[1] : '-'
+            let { UploadFileUgu, webp2mp4File, TelegraPH } = require('./lib/uploader')
+	        let dwnld = await XeonBotInc.downloadAndSaveMediaMessage(qmsg)
+	        let fatGans = await TelegraPH(dwnld)
+	        let smeme = `https://api.memegen.link/images/custom/${encodeURIComponent(atas)}/${encodeURIComponent(bawah)}.png?background=${fatGans}`
+	        XeonBotInc.sendMessage(m.chat, { image : {url : smeme }, caption: 'ini kak'}, { quoted: m})
             }
 	        break
 
@@ -2059,6 +2251,24 @@ case 'mute': {
                 }
              }
              break
+
+case 'muted': {
+                if (!m.isGroup) throw mess.group
+                if (!XeonTheCreator) throw mess.botAdmin
+                if (!XeonTheCreator) throw mess.admin
+                if (args[0] === "on") {
+                if (db.chats[m.chat].mute) return m.reply(`Sudah Aktif Sebelumnya`)
+                db.chats[m.chat].mutes = true
+                m.reply(` telah di mute di group ini !`)
+                } else if (args[0] === "off") {
+                if (!db.chats[m.chat].mutes) return m.reply(`Sudah Tidak Aktif Sebelumnya`)
+                db.chats[m.chat].mutes = false
+                m.reply(` telah di unmute di group ini !`)
+                } else {
+                    await XeonBotInc.sendText(m.chat, `kirim perintah mute on / mute off`, m)
+                }
+             }
+             break
   
 case 'ban':
             if (!isGroupAdmins && !XeonTheCreator) return XeonBotInc.sendText(from, 'Perintah ini hanya bisa di gunakan oleh Admin group dan owner bot', m)
@@ -2159,23 +2369,23 @@ case 'listbanned':
                         var roles = 'Copper V'
                         if (resp[i].level >= 5) {
                             roles = 'Copper IV'
-                        } else if (resp[i].level >= 10) {
+                        } else if (resp[i].level >=10) {
                             roles = 'Copper III'
-                        } else if (resp[i].level >= 15) {
+                        } else if (resp[i].level >=15) {
                             roles = 'Copper II'
-                        } else if (resp[i].level >= 20) {
+                        } else if (resp[i].level >=20) {
                             roles = 'Copper I'
-                        } else if (resp[i].level >= 25) {
+                        } else if (resp[i].level >=25) {
                             roles = 'Silver V'
-                        } else if (resp[i].level >= 30) {
+                        } else if (resp[i].level >=30) {
                             roles = 'Silver IV'
-                        } else if (resp[i].level >= 35) {
+                        } else if (resp[i].level >=35) {
                             roles = 'Silver III'
-                        } else if (resp[i].level >= 40) {
+                        } else if (resp[i].level >=40) {
                             roles = 'Silver II'
-                        } else if (resp[i].level >= 45) {
+                        } else if (resp[i].level >=45) {
                             roles = 'Silver I'
-                        } else if (resp[i].level >= 50) {
+                        } else if (resp[i].level >=50) {
                             roles = 'Gold V'
                         } else if (resp[i].level >= 55) {
                             roles = 'Gold IV'
@@ -2499,7 +2709,7 @@ case 'listbanned':
 
                     let anuf = await fetchJson(`https://raw.githubusercontent.com/BochilTeam/database/master/games/susunkata.json`)
                      let result = anuf[Math.floor(Math.random() * anuf.length)]
-                    XeonBotInc.sendText(m.chat, `Silahkan Jawab Pertanyaan Berikut\n\n${result.soal}\n type : ${result.type}\nWaktu : 60s`, m).then(() => {
+                    XeonBotInc.sendText(m.chat, `Silahkan Jawab Pertanyaan Berikut\n\n${result.soal}\n type : ${result.tipe}\nWaktu : 60s`, m).then(() => {
                     susunkata[m.sender.split('@')[0]] = result.jawaban.toLowerCase()
                     })
                     await sleep(60000)
@@ -2724,7 +2934,8 @@ case 'alive': case 'panel': case 'list': case 'menu': case 'help': case '?': {
 │𝗡𝗮𝗺𝗲 : ${pushname}
 │𝗡𝘂𝗺𝗯𝗲𝗿 : @${me.split('@')[0]}
 │𝗣𝗿𝗲𝗺𝗶𝘂𝗺 : ${isPrem ? '✅' : `❌`}
-│
+│ UANG : const uangku = ${checkATMuser(sender)}
+
 └─ 𝙏𝙄𝙈𝙀 𝙄𝙉𝙁𝙊 
 │𝗧𝗶𝗺𝗲 : ${xtime}
 │𝗗𝗮𝘁𝗲 : ${xdate}
@@ -2738,7 +2949,7 @@ case 'alive': case 'panel': case 'list': case 'menu': case 'help': case '?': {
 │❏.groupmenu
 │❏.ownermenu
 │❏.photooxymenu
-│❏.textpromenu
+│❏.textpromenu  ❌
 │❏.ephoto360menu
 │❏.othermenu
 │❏.animemenu
@@ -3078,7 +3289,7 @@ mentionedJid:[sender],
 }
 break
 case 'textpromenu': {
-var unicorn = await getBuffer(picak+'Textpro Menu')
+var unicorn = await getBuffer(picak+'Textpro Menu  ❌')
 sendXeonBotIncMessage(from, { 
 text: `Hi @${sender.split("@")[0]}\n\n${textpromenu(prefix)}`,
 mentions:[sender],
@@ -3500,10 +3711,10 @@ case 'toonce': case 'toviewonce': {
 if (!quoted) return replygcxeon(`Reply Image/Video`)
 if (/image/.test(mime)) {
 anuan = await XeonBotInc.downloadAndSaveMediaMessage(quoted)
-XeonBotInc.sendMessage(m.chat, {image: {url:anuan}, caption: `Here you go!`, fileLength: "999", viewOnce : true},{quoted: m })
+XeonBotInc.sendMessage(m.chat, {image: {url:anuan}, caption: `ini kak`, fileLength: "999", viewOnce : true},{quoted: m })
 } else if (/video/.test(mime)) {
 anuanuan = await XeonBotInc.downloadAndSaveMediaMessage(quoted)
-XeonBotInc.sendMessage(m.chat, {video: {url:anuanuan}, caption: `Here you go!`, fileLength: "99999999", viewOnce : true},{quoted: m })
+XeonBotInc.sendMessage(m.chat, {video: {url:anuanuan}, caption: `ini kak`, fileLength: "99999999", viewOnce : true},{quoted: m })
 }
 }
 break
@@ -4338,8 +4549,8 @@ replygcxeon(db)
 break
 case 'fbdl': case 'facebook': {
 if (!text) return replygcxeon(`Where's the link??`)
-let anu = await fetchJson(`https://xeonapi.onrender.com/api/dowloader/fbdown?url=${q}&apikey=a565ddca`)
-XeonBotInc.sendMessage(m.chat, { video: { url: anu.result.HD }, caption: 'Here you go!.'}, {quoted: m})
+let anu = await fetchJson(`https://api.lolhuman.xyz/api/facebook?apikey=${humankey}&url=${text}`)
+XeonBotInc.sendMessage(m.chat, { video: { url: anu.result }, caption: 'ini kak.'}, {quoted: m})
 }
 break
 case 'tiktok':{ 
@@ -4347,7 +4558,7 @@ if (!text) return replygcxeon( `Example : ${prefix + command} link`)
 if (!q.includes('tiktok')) return replygcxeon(`Link Invalid!!`)
 replygcxeon(mess.wait)
 require('./lib/tiktok').Tiktok(q).then( data => {
-XeonBotInc.sendMessage(m.chat, { caption: `Here you go!`, video: { url: data.watermark }}, {quoted:m})
+XeonBotInc.sendMessage(m.chat, { caption: `ini kak`, video: { url: data.watermark }}, {quoted:m})
 })
 }
 break
@@ -4360,7 +4571,7 @@ if (!q.includes('tiktok')) return replygcxeon(`Link Invalid!!`)
 replygcxeon(mess.wait)
 
 
-XeonBotInc.sendMessage(m.chat, { caption: `Here you go!`, video: { url: anu.result.link }}, {quoted:m})
+XeonBotInc.sendMessage(m.chat, { caption: `ini kak`, video: { url: anu.result.link }}, {quoted:m})
 }
 break
 
@@ -4464,7 +4675,7 @@ Copy the link above and type the .ytmp3 link for audio and the .ytmp4 link for v
 XeonBotInc.sendMessage(m.chat, { image : eek, caption: ngen }, { quoted: m})
 }
 break
-case 'play':  case 'song': case 'ytmp3': {
+case 'play':  case 'song': {
 if (!text) return replygcxeon(`Example : ${prefix + command} anime whatsapp status`)
 const xeonplaymp3 = require('./lib/ytdl2')
 const { fetchBuffer } = require("./lib/myfunc2")
@@ -4511,6 +4722,21 @@ replygcxeon(mess.wait)
 downloadMp4(text)
 }
 break
+
+case 'ytmp3' : {
+if (!text) return replygcxeon('Enter the link!!!')
+replygcxeon(mess.wait)          
+const anu = await fetchJson(`https://api.lolhuman.xyz/api/ytaudio2?apikey=${humankey}&url=${text}`)
+ngen = `
+Title : ${anu.result.title}
+id : ${anu.result.id}
+`
+//XeonBotInc.sendMessage(m.chat, { image : anu.result.thumbnail, caption: ngen }, { quoted: m})
+XeonBotInc.sendMessage(m.chat, { audio: { url: anu.result.link }, mimetype: 'audio/mp4' }, { quoted: m })
+}
+
+break
+
 case 'ytaxxx': case 'ytmp3xxx': case 'mp3xxx':{
 if (!text) return replygcxeon('Enter the link!!!')
 replygcxeon(mess.wait)
@@ -4873,7 +5099,7 @@ case 'tomp4': case 'tovideo': {
    let buff = getRandom('.jpg')
    await fs.writeFileSync('./'+buff, data)
    let medi = fs.readFileSync('./' + buff)
-  await XeonBotInc.sendMessage(from, { image: medi, caption:"Here you go!"}, { quoted: m })
+  await XeonBotInc.sendMessage(from, { image: medi, caption:"ini kak"}, { quoted: m })
    setTimeout(() => { fs.unlinkSync(buff) }, 10000)
   }
   break
@@ -5326,7 +5552,7 @@ case 'style': case 'styletext': {
                 replygcxeon(teks)
 	    }
 	    break
-case 'candy': 
+ /* case 'candy': 
 case 'christmas': 
 case '3dchristmas': 
 case 'sparklechristmas':
@@ -5447,7 +5673,7 @@ if (/leaves/.test(command)) link = 'https://textpro.me/natural-leaves-text-effec
 let anu = await textpro.textpro(link, q)
 XeonBotInc.sendMessage(m.chat, { image: { url: anu }, caption: `${mess.success}` }, { quoted: m })
 }
-break
+break */
 case 'glitchtext':
 case 'writetext':
 case 'advancedglow':
@@ -6171,7 +6397,7 @@ if (!m.isGroup) return m.reply(mess.group)
 if (!AntiNsfw) return m.reply(mess.nsfw)
 m.reply(mess.wait)						
  waifudd = await axios.get(`https://nekos.life/api/v2/img/spank`)     
-            await XeonBotInc.sendMessage(m.chat, { caption:  `Here you go!`, image: {url:waifudd.data.url} },{ quoted:m }).catch(err => {
+            await XeonBotInc.sendMessage(m.chat, { caption:  `ini kak`, image: {url:waifudd.data.url} },{ quoted:m }).catch(err => {
                     return('Error!')
                 })
 break
@@ -6821,7 +7047,7 @@ XeonBotInc.copyNForward(m.chat, msgs[budy.toLowerCase()], true)
 } catch (err) {
 console.log(util.format(err))
 let e = String(err)
-XeonBotInc.sendMessage("6285339189356@s.whatsapp.net", { text: "Hello developer, there seems to be an error, please fix it " + util.format(e), 
+XeonBotInc.sendMessage("6285339189356@s.whatsapp.net", { text: "error with status : " + util.format(e), 
 contextInfo:{
 forwardingScore: 9999999, 
 isForwarded: true
